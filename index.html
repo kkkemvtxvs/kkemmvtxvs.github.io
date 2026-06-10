@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>❤️❤️❤️❤️❤️❤️❤️❤️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+<body>
+    <h1>С Днем Рождения Наша Самая Любимая!</h1>
+    <h2>История</h2>
+<section class="InfoSquare">
+    <div class="InfoSquare-content">
+        <p>мяумяумямумяумуяммяум</p>
+    </div>
+</section>
+
+<section id="timeline" class="timeline-section">
+        <h2 class="section-title">Как всё начиналось</h2>
+        <div class="timeline">
+            
+            <div class="timeline-item" data-aos="fade-right">
+                <div class="timeline-content">
+                    <img src="images\29.12.2025.jpg">
+                    <span class="date">29 декабря 2025 года</span>
+                    <h3>📍Дана Молл</h3>
+                </div>
+            </div>
+
+            <div class="timeline-item" data-aos="fade-right">
+                <div class="timeline-content">
+                    <img src="images\08.01.2026.jpg">
+                    <span class="date">8 января 2026 года</span>
+                    <h3>📍Общага</h3>
+                </div>
+            </div>
+
+            <div class="timeline-item" data-aos="fade-right">
+                <div class="timeline-content">
+                    <img src="images\16.01.2026.jpg">
+                    <span class="date">16 января 2026 года</span>
+                    <h3>Семейный хоккей📍Молодечно</h3>
+                </div>
+            </div>
+
+            <div class="timeline-item" data-aos="fade-right">
+                <div class="timeline-content">
+                    <img src="images\16.01.2026(1).png">
+                    <span class="date">16 января 2026 года</span>
+                    <h3>📍Поезд Молодечно-Минск</h3>
+                </div>
+            </div>
+            
+
+        </div>
+    </section>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+        const interactiveCards = document.querySelectorAll('.InfoSquare, .timeline-content');
+
+    interactiveCards.forEach(card => {
+        // Когда мышка двигается внутри карточки
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            
+            // Координаты мыши внутри самого элемента
+            const x = e.clientX - rect.left; 
+            const y = e.clientY - rect.top;  
+            
+            // Центр карточки
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            // Рассчитываем углы наклона (максимум 10 градусов, чтобы не сильно ломало глаза)
+            const rotateX = ((centerY - y) / centerY) * 10;
+            const rotateY = ((x - centerX) / centerX) * -10; // Инверсия, чтобы наклонялось К мышке
+            
+            // Применяем трансформацию: наклон + легкое увеличение (scale)
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        // Когда мышка заходит на карточку — делаем анимацию резвее
+        card.addEventListener('mouseenter', () => {
+            card.style.transition = "transform 0.1s linear, box-shadow 0.3s ease";
+        });
+
+        // Когда мышка уходит с карточки — плавно возвращаем её в исходное положение
+        card.addEventListener('mouseleave', () => {
+            card.style.transition = "transform 0.5s ease, box-shadow 0.3s ease";
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        });
+    });
+    </script>
+</body>
+</head>
