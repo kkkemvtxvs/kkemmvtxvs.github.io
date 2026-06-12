@@ -1,99 +1,80 @@
 <!DOCTYPE html>
-
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>❤️❤️❤️❤️❤️❤️❤️❤️</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Жду 14 июня 🤍</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+</head>
 <body>
-    <h1>С Днем Рождения Наша Самая Любимая!</h1>
-    <h2>История</h2>
-<section class="InfoSquare">
-    <div class="InfoSquare-content">
-        <p>мяумяумямумяумуяммяум</p>
-    </div>
-</section>
-
-<section id="timeline" class="timeline-section">
-        <h2 class="section-title">Как всё начиналось</h2>
-        <div class="timeline">
-            
-            <div class="timeline-item" data-aos="fade-right">
-                <div class="timeline-content">
-                    <img src="images\29.12.2025.jpg">
-                    <span class="date">29 декабря 2025 года</span>
-                    <h3>📍Дана Молл</h3>
-                </div>
+    <div class="countdown-container">
+        <div class="heart-icon">🤍</div>
+        <h1>До самого важного дня:</h1>
+        
+        <div class="timer" id="timer">
+            <div class="time-box">
+                <span id="days">00</span>
+                <p>Дней</p>
             </div>
-
-            <div class="timeline-item" data-aos="fade-right">
-                <div class="timeline-content">
-                    <img src="images\08.01.2026.jpg">
-                    <span class="date">8 января 2026 года</span>
-                    <h3>📍Общага</h3>
-                </div>
+            <div class="time-box">
+                <span id="hours">00</span>
+                <p>Часов</p>
             </div>
-
-            <div class="timeline-item" data-aos="fade-right">
-                <div class="timeline-content">
-                    <img src="images\16.01.2026.jpg">
-                    <span class="date">16 января 2026 года</span>
-                    <h3>Семейный хоккей📍Молодечно</h3>
-                </div>
+            <div class="time-box">
+                <span id="minutes">00</span>
+                <p>Минут</p>
             </div>
-
-            <div class="timeline-item" data-aos="fade-right">
-                <div class="timeline-content">
-                    <img src="images\16.01.2026(1).png">
-                    <span class="date">16 января 2026 года</span>
-                    <h3>📍Поезд Молодечно-Минск</h3>
-                </div>
+            <div class="time-box">
+                <span id="seconds">00</span>
+                <p>Секунд</p>
             </div>
-            
-
         </div>
-    </section>
 
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <div class="message" id="message">Этот день настал! Ура! 🎉🤍</div>
+    </div>
+
     <script>
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
-        const interactiveCards = document.querySelectorAll('.InfoSquare, .timeline-content');
+        document.addEventListener('DOMContentLoaded', () => {
+    // Устанавливаем целевую дату: 14 июня 2026 года, 00:00:00
+    const targetDate = new Date("June 14, 2026 00:00:00").getTime();
 
-    interactiveCards.forEach(card => {
-        // Когда мышка двигается внутри карточки
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            
-            // Координаты мыши внутри самого элемента
-            const x = e.clientX - rect.left; 
-            const y = e.clientY - rect.top;  
-            
-            // Центр карточки
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            // Рассчитываем углы наклона (максимум 10 градусов, чтобы не сильно ломало глаза)
-            const rotateX = ((centerY - y) / centerY) * 10;
-            const rotateY = ((x - centerX) / centerX) * -10; // Инверсия, чтобы наклонялось К мышке
-            
-            // Применяем трансформацию: наклон + легкое увеличение (scale)
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-        });
+    // Обновляем таймер каждую секунду (1000 миллисекунд)
+    const timerInterval = setInterval(() => {
+        // Получаем текущее время
+        const now = new Date().getTime();
+        
+        // Считаем разницу между целевой датой и сейчас
+        const distance = targetDate - now;
 
-        // Когда мышка заходит на карточку — делаем анимацию резвее
-        card.addEventListener('mouseenter', () => {
-            card.style.transition = "transform 0.1s linear, box-shadow 0.3s ease";
-        });
+        // Если время вышло (наступило 14 июня)
+        if (distance < 0) {
+            clearInterval(timerInterval); // Останавливаем таймер
+            document.getElementById("timer").style.display = "none";
+            document.querySelector("h1").style.display = "none";
+            
+            // Показываем финальное сообщение
+            const message = document.getElementById("message");
+            message.style.display = "block";
+            return;
+        }
 
-        // Когда мышка уходит с карточки — плавно возвращаем её в исходное положение
-        card.addEventListener('mouseleave', () => {
-            card.style.transition = "transform 0.5s ease, box-shadow 0.3s ease";
-            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-        });
-    });
+        // Математика для конвертации миллисекунд в дни, часы, минуты и секунды
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Функция для добавления нуля спереди (чтобы было "09", а не "9")
+        const formatTime = (time) => time < 10 ? `0${time}` : time;
+
+        // Выводим результаты в HTML
+        document.getElementById("days").innerText = formatTime(days);
+        document.getElementById("hours").innerText = formatTime(hours);
+        document.getElementById("minutes").innerText = formatTime(minutes);
+        document.getElementById("seconds").innerText = formatTime(seconds);
+    }, 1000);
+});
     </script>
 </body>
-</head>
+</html>
